@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | Event One Page Report</title>
+
+  <style>
+    :root{
+      --brand:#03203e;
+      --brand2:#0a5ea3;
+      --bg:#f3f7f8;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --line:rgba(15,23,42,.10);
+      --shadow: 0 16px 38px rgba(2,6,23,.10);
+      --shadow2: 0 10px 22px rgba(2,6,23,.08);
+      --radius:16px;
+      --accent:#ff7a2d;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .nav{
+      background:var(--brand);
+      color:#fff;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:20;
+      box-shadow: 0 10px 25px rgba(2,6,23,.18);
+    }
+    .navLeft{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .cap{ font-size:20px; }
+    .navRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .welcome{
+      font-weight:800;
+      opacity:.95;
+      margin-right:6px;
+    }
+    .navBtn{
+      border:none;
+      border-radius:10px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:850;
+      background:#ffffff;
+      color:var(--brand);
+      box-shadow: 0 6px 14px rgba(2,6,23,.10);
+      transition:.15s;
+      white-space:nowrap;
+    }
+    .navBtn:hover{ transform:translateY(-1px); }
+    .navBtn:disabled{
+      opacity:.7;
+      cursor:not-allowed;
+      transform:none;
+    }
+    .navBtn.secondary{
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.20);
+      box-shadow:none;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:18px 14px 50px;
+    }
+
+    .hint{
+      margin:10px 0 14px;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.45;
+    }
+
+    .paper{
+      background:#fff;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:18px 18px;
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .topHead{
+      display:grid;
+      grid-template-columns: 90px 1fr;
+      gap:12px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .logoBox{
+      width:90px;height:90px;
+      border:1px dashed rgba(15,23,42,.18);
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:#fafafa;
+    }
+    .logoBox img{ width:100%; height:100%; object-fit:contain; }
+    .logoBox .logoText{
+      text-align:center;
+      font-weight:900;
+      color:rgba(15,23,42,.55);
+      padding:8px;
+      font-size:12px;
+    }
+
+    .collegeText{
+      text-align:center;
+      line-height:1.25;
+    }
+    .collegeText .l1{
+      font-weight:950;
+      font-size:15px;
+    }
+    .collegeText .l2{
+      font-weight:950;
+      font-size:19px;
+      color:#b91c1c;
+    }
+    .collegeText .l3{
+      font-weight:750;
+      font-size:12.5px;
+      color:rgba(15,23,42,.72);
+    }
+
+    .dept{
+      margin-top:6px;
+      display:inline-block;
+      padding:6px 12px;
+      border-top:2px solid rgba(37,99,235,.65);
+      border-bottom:2px solid rgba(37,99,235,.65);
+      font-weight:950;
+      color:#1d4ed8;
+      font-size:16px;
+      width:100%;
+      max-width:760px;
+      outline:none;
+    }
+
+    .titleRow{
+      text-align:center;
+      margin:12px 0 10px;
+      font-weight:950;
+      font-size:16px;
+    }
+    .titleRow span{
+      font-weight:950;
+      outline:none;
+      display:inline-block;
+      padding:2px 6px;
+      border-radius:8px;
+    }
+
+    .box{
+      border:2px solid var(--accent);
+      border-radius:8px;
+      padding:0;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+    }
+    td, th{
+      border:1px solid rgba(15,23,42,.18);
+      padding:10px 10px;
+      vertical-align:top;
+      font-size:13.5px;
+    }
+    th{
+      background:#f8fafc;
+      text-align:left;
+      font-weight:950;
+    }
+
+    .label{
+      width:28%;
+      font-weight:950;
+      background:#fbfdff;
+    }
+
+    .edit{
+      outline:none;
+      min-height:18px;
+      display:block;
+      font-weight:650;
+    }
+    .edit:focus,
+    .dept:focus,
+    .titleRow span:focus{
+      box-shadow: 0 0 0 4px rgba(11,143,135,.12);
+      border-radius:6px;
+      background:#e6f7f6;
+    }
+
+    .bullets{
+      padding-left:18px;
+      margin:0;
+      font-weight:650;
+    }
+    .bullets li{ margin:6px 0; }
+
+    .subHead{
+      font-weight:950;
+      margin:0 0 8px;
+    }
+
+    .photosWrap{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .photoTools{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 10px;
+      border:1px dashed rgba(15,23,42,.18);
+      border-radius:12px;
+      background:#fafafa;
+    }
+    .photoToolsLeft{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .file{
+      font-weight:850;
+      border-radius:10px;
+      padding:9px 12px;
+      border:1px solid rgba(15,23,42,.14);
+      background:#fff;
+      cursor:pointer;
+    }
+    .smallBtn{
+      border:none;
+      cursor:pointer;
+      font-weight:950;
+      border-radius:10px;
+      padding:9px 12px;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+    }
+    .smallBtn.danger{
+      background:rgba(225,25,25,.10);
+      color:#b91c1c;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+    .photoCard{
+      border:1px solid rgba(15,23,42,.12);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+      position:relative;
+      box-shadow: 0 10px 22px rgba(2,6,23,.07);
+    }
+    .photoCard img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      display:block;
+    }
+    .photoCard .rm{
+      position:absolute;
+      top:8px; right:8px;
+      border:none;
+      cursor:pointer;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      font-weight:950;
+      border-radius:10px;
+      padding:6px 10px;
+    }
+    .photoCard .cap{
+      padding:8px 10px;
+      border-top:1px solid rgba(15,23,42,.10);
+    }
+    .photoCard .cap .capLabel{
+      font-weight:950;
+      font-size:12px;
+      color:rgba(15,23,42,.70);
+      margin-bottom:6px;
+    }
+    .photoCard .cap .capEdit{
+      border:1px solid rgba(15,23,42,.14);
+      border-radius:10px;
+      padding:8px 10px;
+      font-weight:650;
+      outline:none;
+      width:100%;
+    }
+    .photoCard .cap .capEdit:focus{
+      box-shadow: 0 0 0 4px rgba(11,143,135,.12);
+      border-color: rgba(11,143,135,.55);
+    }
+
+    .submitSection{
+      margin-top:18px;
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:14px;
+      padding:16px;
+      background:#fcfefe;
+    }
+    .submitTitle{
+      font-size:18px;
+      font-weight:950;
+      color:var(--brand);
+      margin-bottom:12px;
+    }
+    .submitGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .fieldLabel{
+      display:block;
+      font-weight:850;
+      margin-bottom:6px;
+    }
+    .input,
+    .select,
+    .textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,42,.14);
+      font-weight:700;
+      background:#fff;
+      outline:none;
+    }
+    .textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+    .mailLink{
+      display:block;
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,42,.14);
+      background:#f8fafc;
+      font-weight:700;
+      color:#03203e;
+      text-decoration:none;
+      word-break:break-all;
+      min-height:44px;
+    }
+    .mailLink.disabled{
+      color:#6b7280;
+      pointer-events:none;
+    }
+    .actionRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .statusMsg{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:10px;
+      font-weight:800;
+      display:none;
+    }
+    .statusMsg.show{
+      display:block;
+    }
+    .statusMsg.success{
+      background:#e8f9ff;
+      color:#0f8a4b;
+      border:1px solid #b6e1f0;
+    }
+    .statusMsg.error{
+      background:#fff1f1;
+      color:#b91c1c;
+      border:1px solid #f3c5c5;
+    }
+
+    @media (max-width: 900px){
+      .gallery{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .topHead{ grid-template-columns: 80px 1fr; }
+      .logoBox{ width:80px; height:80px; }
+      .submitGrid{ grid-template-columns:1fr; }
+    }
+    @media (max-width: 520px){
+      .gallery{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="navLeft">
+      <span class="cap">🎓</span>
+      <span style="font-size:20px;">Campus orbit</span>
+    </div>
+
+    <div class="navRight">
+      <div class="welcome" id="welcomeText">Welcome, staff</div>
+      <button class="navBtn" id="goStaff">Add Event</button>
+      <button class="navBtn" id="goTrack">Approval Tracking</button>
+      <button class="navBtn" id="goReport">Report</button>
+      <button class="navBtn secondary" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hint">
+      ✅ Everything is editable (click and type). You can upload <b>multiple photos</b>.<br>
+      ✅ When you click <b>Open Mail</b>, the report PDF will download automatically and then mail will open.<br>
+      ✅ Then just attach the downloaded PDF and send.
+    </div>
+
+    <div class="paper" id="reportRoot">
+      <div class="topHead">
+        <div class="logoBox">
+          <img id="collegeLogo" src="spspm.png" alt="College Logo"
+               onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';">
+          <div class="logoText" id="logoFallback" style="display:none;">Logo</div>
+        </div>
+
+        <div class="collegeText">
+          <div class="l1">Savitribai Phule Shikshan Prasarak Mandal’s</div>
+          <div class="l2">N B Navale Sinhgad College of Engineering, Solapur</div>
+          <div class="l3">(Approved by AICTE &amp; Affiliated to Punyashlok Ahilyadevi Holkar Solapur University, Solapur)</div>
+
+          <div class="dept" contenteditable="true" data-key="deptLine">
+            Department of Computer Science &amp; Engineering
+          </div>
+        </div>
+      </div>
+
+      <div class="titleRow">
+        TITLE :
+        <span contenteditable="true" data-key="reportTitle">One Page Report</span>
+      </div>
+
+      <div class="box">
+        <table>
+          <tr>
+            <td class="label">Title of Activity :</td>
+            <td colspan="3"><div class="edit" contenteditable="true" data-key="titleOfActivity"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Date :</td>
+            <td><div class="edit" contenteditable="true" data-key="date"></div></td>
+            <td class="label" style="width:14%;">Time :</td>
+            <td><div class="edit" contenteditable="true" data-key="time"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Type of Activity :</td>
+            <td colspan="3"><div class="edit" contenteditable="true" data-key="typeOfActivity"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Resource Person / Guest :</td>
+            <td colspan="3"><div class="edit" contenteditable="true" data-key="resourcePerson"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Brief Details of Resource Person / Guest :</td>
+            <td colspan="3" style="height:90px;"><div class="edit" contenteditable="true" data-key="resourceBrief"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Class (for student participants) :</td>
+            <td colspan="3"><div class="edit" contenteditable="true" data-key="classParticipants">S</div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Activity Incharge :</td>
+            <td colspan="3"><div class="edit" contenteditable="true" data-key="incharge"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Description of Activity :</td>
+            <td colspan="3" style="height:120px;"><div class="edit" contenteditable="true" data-key="description"></div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Technical Events:</td>
+            <td colspan="3" style="height:70px;"><div class="edit" contenteditable="true" data-key="technicalEvents">.</div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Non-Technical Events:</td>
+            <td colspan="3" style="height:70px;"><div class="edit" contenteditable="true" data-key="nonTechnicalEvents">.</div></td>
+          </tr>
+
+          <tr>
+            <td class="label">Winners:</td>
+            <td colspan="3" style="height:110px;">
+              <div class="subHead">• Technical Category:</div>
+              <ol class="bullets">
+                <li><span class="edit" contenteditable="true" data-key="winnerTech1"></span></li>
+                <li><span class="edit" contenteditable="true" data-key="winnerTech2"></span></li>
+                <li><span class="edit" contenteditable="true" data-key="winnerTech3"></span></li>
+              </ol>
+
+              <div style="height:10px"></div>
+
+              <div class="subHead">• Non-Technical Category:</div>
+              <ol class="bullets">
+                <li><span class="edit" contenteditable="true" data-key="winnerNonTech1"></span></li>
+                <li><span class="edit" contenteditable="true" data-key="winnerNonTech2"></span></li>
+                <li><span class="edit" contenteditable="true" data-key="winnerNonTech3"></span></li>
+              </ol>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="label">Photos:</td>
+            <td colspan="3">
+              <div class="photosWrap">
+                <div class="photoTools">
+                  <div class="photoToolsLeft">
+                    <label class="file">
+                      + Upload Photos
+                      <input id="photoInput" type="file" accept="image/*" multiple style="display:none">
+                    </label>
+                    <button class="smallBtn danger" id="clearPhotosBtn" type="button">Clear Photos</button>
+                  </div>
+                  <div style="color:var(--muted);font-weight:800;font-size:12px;">
+                    Tip: Add captions below each photo.
+                  </div>
+                </div>
+
+                <div class="gallery" id="gallery"></div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="submitSection">
+        <div class="submitTitle">Share Report with Coordinator</div>
+
+        <div class="submitGrid">
+          <div>
+            <label class="fieldLabel" for="coordinatorType">Select Coordinator</label>
+            <select id="coordinatorType" class="select">
+              <option value="">-- Select Coordinator --</option>
+              <option value="alumni">Central Alumni Coordinator</option>
+              <option value="cultural">Central Cultural Event Coordinator</option>
+              <option value="technical">Central Technical Event Coordinator</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="fieldLabel">Coordinator Email</label>
+            <a
+              id="coordinatorEmailLink"
+              class="mailLink disabled"
+              href="#"
+              target="_blank"
+            >
+              Coordinator email will appear here
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label class="fieldLabel" for="coordinatorRemark">Remark for Coordinator</label>
+          <textarea
+            id="coordinatorRemark"
+            class="textarea"
+            placeholder="Write a short note for the coordinator..."
+          ></textarea>
+        </div>
+
+        <div class="actionRow">
+          <button class="navBtn" id="openMailBtn" type="button">Open Mail</button>
+          <button class="navBtn" id="saveLocalBtn" type="button">Save Draft</button>
+          <button class="navBtn" id="loadLocalBtn" type="button">Load Draft</button>
+        </div>
+
+        <div id="statusMsg" class="statusMsg"></div>
+
+        <div style="margin-top:10px;color:var(--muted);font-weight:650;font-size:13px;">
+          Select coordinator first. Then click <b>Open Mail</b>.
+        </div>
+      </div>
+
+      <div style="margin-top:10px;color:rgba(15,23,42,.65);font-weight:750;font-size:12px;">
+        Note: The PDF will be downloaded automatically when you click <b>Open Mail</b>.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    const LS_DRAFT = "campusOrbit_eventReportDraft_v1";
+
+    const currentUser = JSON.parse(localStorage.getItem("campusOrbit_currentUser_v1") || "null");
+    const staffName = currentUser?.fullName || "staff";
+
+    document.getElementById("welcomeText").textContent = `Welcome, ${staffName} (staff)`;
+
+    document.getElementById("goStaff").onclick = ()=> window.location.href = "staff.html";
+    document.getElementById("goTrack").onclick = ()=> window.location.href = "approval_tracking.html";
+    document.getElementById("goReport").onclick = ()=> window.location.href = "report_event.html";
+    document.getElementById("logoutBtn").onclick = ()=> {
+      localStorage.removeItem("campusOrbit_currentUser_v1");
+      localStorage.removeItem("campusOrbit_token_v1");
+      window.location.href = "login.html";
+    };
+
+    const saveLocalBtn = document.getElementById("saveLocalBtn");
+    const loadLocalBtn = document.getElementById("loadLocalBtn");
+
+    const photoInput = document.getElementById("photoInput");
+    const gallery = document.getElementById("gallery");
+    const clearPhotosBtn = document.getElementById("clearPhotosBtn");
+
+    const coordinatorType = document.getElementById("coordinatorType");
+    const coordinatorEmailLink = document.getElementById("coordinatorEmailLink");
+    const coordinatorRemark = document.getElementById("coordinatorRemark");
+    const openMailBtn = document.getElementById("openMailBtn");
+    const statusMsg = document.getElementById("statusMsg");
+
+    const coordinatorMap = {
+      alumni: "pranalivyavhare6@gmail.com",
+      cultural: "rutujasutar05@gmail.com",
+      technical: "pranali02ks@gmail.com"
+    };
+
+    let photos = [];
+
+    function qsAll(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+    function getAllFields(){
+      const out = {};
+      qsAll("[data-key]").forEach(el=>{
+        out[el.dataset.key] = el.innerText.trim();
+      });
+      return out;
+    }
+
+    function setAllFields(data){
+      qsAll("[data-key]").forEach(el=>{
+        const k = el.dataset.key;
+        if(data && Object.prototype.hasOwnProperty.call(data, k)){
+          el.innerText = data[k] ?? "";
+        }
+      });
+    }
+
+    function escapeAttr(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function showStatus(message, type){
+      statusMsg.textContent = message;
+      statusMsg.className = "statusMsg show " + type;
+    }
+
+    function clearStatus(){
+      statusMsg.textContent = "";
+      statusMsg.className = "statusMsg";
+    }
+
+    function renderGallery(){
+      gallery.innerHTML = "";
+
+      if(!photos.length){
+        gallery.innerHTML = `
+          <div style="grid-column:1/-1;border:1px dashed rgba(15,23,42,.18);border-radius:12px;padding:14px;background:#fafafa;">
+            <div style="font-weight:950;color:rgba(15,23,42,.75);">No photos uploaded</div>
+            <div style="color:#6b7280;font-weight:650;margin-top:4px;">Click “Upload Photos” to add multiple images.</div>
+          </div>
+        `;
+        return;
+      }
+
+      photos.forEach((p, idx)=>{
+        const card = document.createElement("div");
+        card.className = "photoCard";
+        card.innerHTML = `
+          <button class="rm" type="button" title="Remove photo">✕</button>
+          <img src="${p.dataUrl}" alt="Uploaded photo ${idx+1}">
+          <div class="cap">
+            <div class="capLabel">Caption</div>
+            <input class="capEdit" type="text" placeholder="Write caption..." value="${escapeAttr(p.caption || "")}">
+          </div>
+        `;
+
+        card.querySelector(".rm").addEventListener("click", ()=>{
+          photos.splice(idx,1);
+          renderGallery();
+        });
+
+        card.querySelector(".capEdit").addEventListener("input", (e)=>{
+          photos[idx].caption = e.target.value;
+        });
+
+        gallery.appendChild(card);
+      });
+    }
+
+    function fileToDataUrl(file){
+      return new Promise((resolve, reject)=>{
+        const reader = new FileReader();
+        reader.onload = ()=> resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    photoInput.addEventListener("change", async (e)=>{
+      const files = Array.from(e.target.files || []);
+      if(!files.length) return;
+
+      for(const f of files){
+        if(!f.type.startsWith("image/")) continue;
+        const dataUrl = await fileToDataUrl(f);
+        photos.push({ dataUrl, caption: "" });
+      }
+
+      photoInput.value = "";
+      renderGallery();
+    });
+
+    clearPhotosBtn.addEventListener("click", ()=>{
+      if(!photos.length) return;
+      if(confirm("Remove all uploaded photos?")){
+        photos = [];
+        renderGallery();
+      }
+    });
+
+    function updateCoordinatorMailLink(){
+      const selected = coordinatorType.value;
+      const email = coordinatorMap[selected] || "";
+      const fields = getAllFields();
+
+      const title = (fields.titleOfActivity || "Event Report").trim();
+      const date = (fields.date || "").trim();
+      const remark = coordinatorRemark.value.trim();
+
+      if(!email){
+        coordinatorEmailLink.textContent = "Coordinator email will appear here";
+        coordinatorEmailLink.href = "#";
+        coordinatorEmailLink.classList.add("disabled");
+        return;
+      }
+
+      const subject = encodeURIComponent(`Campus Orbit Report - ${title || "Event Report"}`);
+
+      const bodyLines = [
+        `Dear Coordinator,`,
+        ``,
+        `Please find the event report details below:`,
+        ``,
+        `Title of Activity: ${title}`,
+        `Date: ${date}`,
+        `Submitted By: ${staffName}`,
+        ``,
+        `Note: The report PDF has been downloaded automatically. Please attach it before sending.`,
+        remark ? `` : ``,
+        remark ? `Remark: ${remark}` : ``,
+        ``,
+        `Regards,`,
+        `${staffName}`
+      ].filter(Boolean);
+
+      const body = encodeURIComponent(bodyLines.join("\n"));
+
+      coordinatorEmailLink.textContent = email;
+      coordinatorEmailLink.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      coordinatorEmailLink.classList.remove("disabled");
+    }
+
+    coordinatorType.addEventListener("change", updateCoordinatorMailLink);
+    coordinatorRemark.addEventListener("input", updateCoordinatorMailLink);
+
+    saveLocalBtn.addEventListener("click", ()=>{
+      const draft = {
+        fields: getAllFields(),
+        photos,
+        coordinatorType: coordinatorType.value,
+        coordinatorRemark: coordinatorRemark.value
+      };
+      localStorage.setItem(LS_DRAFT, JSON.stringify(draft));
+      clearStatus();
+      alert("Draft saved ✅");
+    });
+
+    loadLocalBtn.addEventListener("click", ()=>{
+      const raw = localStorage.getItem(LS_DRAFT);
+      if(!raw){
+        alert("No saved draft found.");
+        return;
+      }
+
+      try{
+        const draft = JSON.parse(raw);
+        setAllFields(draft.fields || {});
+        photos = Array.isArray(draft.photos) ? draft.photos : [];
+        coordinatorType.value = draft.coordinatorType || "";
+        coordinatorRemark.value = draft.coordinatorRemark || "";
+        renderGallery();
+        updateCoordinatorMailLink();
+        clearStatus();
+        alert("Draft loaded ✅");
+      }catch{
+        alert("Draft is corrupted / invalid.");
+      }
+    });
+
+    async function downloadPdfAutomatically(){
+      const element = document.getElementById("reportRoot");
+      const fields = getAllFields();
+      const safeTitle = (fields.titleOfActivity || "event-report")
+        .trim()
+        .replace(/[\\/:*?"<>|]+/g, "")
+        .replace(/\s+/g, "_");
+
+      const opt = {
+        margin: 0.3,
+        filename: `${safeTitle}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+    }
+
+    openMailBtn.addEventListener("click", async ()=>{
+      clearStatus();
+      updateCoordinatorMailLink();
+
+      if(coordinatorEmailLink.classList.contains("disabled")){
+        showStatus("Please select a coordinator first.", "error");
+        return;
+      }
+
+      try{
+        openMailBtn.disabled = true;
+        openMailBtn.textContent = "Preparing...";
+
+        showStatus("Generating PDF and opening mail...", "success");
+
+        await downloadPdfAutomatically();
+
+        setTimeout(()=>{
+          window.location.href = coordinatorEmailLink.href;
+        }, 700);
+
+      } catch (err) {
+        console.error(err);
+        showStatus("Could not generate PDF.", "error");
+      } finally {
+        setTimeout(()=>{
+          openMailBtn.disabled = false;
+          openMailBtn.textContent = "Open Mail";
+        }, 1200);
+      }
+    });
+
+    renderGallery();
+    updateCoordinatorMailLink();
+  </script>
+</body>
+</html>

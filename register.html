@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | Register</title>
+  <link rel="stylesheet" href="register.css" />
+</head>
+
+<body>
+  <div style="background:#03203e; padding:12px 20px; display:flex; justify-content:space-between; align-items:center;">
+    <div style="color:white; font-weight:bold; font-size:18px;">Campus Orbit</div>
+    <a href="home.html" style="color:white; text-decoration:none; font-weight:600; background:#093566; padding:8px 14px; border-radius:6px;">Home</a>
+  </div>
+
+  <main class="page">
+    <section class="card" aria-label="Create account form">
+      <div class="brand">
+        <img class="logo" src="spspm.png" alt="SPSPM College Logo" />
+        <div class="brandText">
+          <h1>Campus Orbit</h1>
+          <p class="collegeName">
+            Savitribai Phule Shikshan Prasarak Mandal's<br />
+            N B Navale Sinhgad College of Engineering<br />
+            Solapur, Maharashtra
+          </p>
+        </div>
+      </div>
+
+      <h2 class="title">Create Account</h2>
+
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" name="fullName" type="text" placeholder="Enter your name" autocomplete="name" />
+          <small class="error" id="errFullName"></small>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+          />
+          <small class="error" id="errEmail"></small>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="passwordWrap">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Choose a password"
+              autocomplete="new-password"
+              maxlength="8"
+              inputmode="numeric"
+            />
+            <button class="eyeBtn" type="button" id="togglePass" aria-label="Show password">👁</button>
+          </div>
+          <small class="hint">Password must be exactly 8 digits only.</small>
+          <small class="error" id="errPassword"></small>
+        </div>
+
+        <div class="field">
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option value="Student" selected>Student</option>
+            <option value="Staff">Staff</option>
+            <option value="HOD">HOD</option>
+            <option value="Principal">Principal</option>
+          </select>
+          <small class="error" id="errRole"></small>
+        </div>
+
+        <div class="field" id="deptField">
+          <label for="department">Department</label>
+          <select id="department" name="department"></select>
+          <small class="error" id="errDepartment"></small>
+        </div>
+
+        <button class="btn" type="submit">Register</button>
+
+        <p class="bottomText">
+          Already have an account?
+          <a href="login.html">Login here</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="register.js"></script>
+</body>
+</html>

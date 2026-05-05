@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | Login</title>
+
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+  <!-- TOP BAR -->
+  <div style="background:#03203e; padding:12px 20px; display:flex; justify-content:space-between; align-items:center;">
+    <div style="color:white; font-weight:bold; font-size:18px;">Campus Orbit</div>
+    <a href="home.html" style="color:white; text-decoration:none; font-weight:600; background:#1165ab; padding:8px 14px; border-radius:6px;">Home</a>
+  </div>
+
+  <main class="page">
+    <section class="card" aria-label="Login form">
+      <div class="brand">
+        <img class="logo" src="spspm.png" alt="SPSPM College Logo" />
+        <div class="brandText">
+          <h1>Campus Orbit</h1>
+          <p class="collegeName">
+            Savitribai Phule Shikshan Prasarak Mandal's<br/>
+            N B Navale Sinhgad College of Engineering<br/>
+            Solapur, Maharashtra
+          </p>
+        </div>
+      </div>
+
+      <h2 class="title">Login</h2>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" />
+          <small class="error" id="errEmail"></small>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="passwordWrap">
+            <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" />
+            <button class="eyeBtn" type="button" id="togglePass" aria-label="Show password">👁</button>
+          </div>
+          <small class="error" id="errPassword"></small>
+        </div>
+
+        <div class="row">
+          <label class="remember">
+            <input type="checkbox" id="rememberMe" />
+            <span>Remember me</span>
+          </label>
+
+          <a class="forgot" href="#" id="forgotLink">Forgot password?</a>
+        </div>
+
+        <button class="btn" type="submit">Login</button>
+
+        <p class="bottomText">
+          Don’t have an account?
+          <a href="register.html">Register here</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>

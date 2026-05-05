@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | Student Home</title>
+
+  <style>
+    :root{
+      --brand:#03203e;
+      --brand2:#0a5ea3;
+      --bg:#f3f7f8;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --line:rgba(15,23,42,.08);
+      --shadow2: 0 10px 22px rgba(2,6,23,.08);
+      --radius:16px;
+
+      --cHoliday:#ff8a3d;
+      --cImportant:#8e44ad;
+      --cDeadline:#e11919;
+      --cEvent:#2ea8ff;
+      --cToday:#ffd54d;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .nav{
+      background:var(--brand);
+      color:#fff;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow: 0 10px 25px rgba(2,6,23,.18);
+    }
+    .navLeft{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+    }
+    .navRight{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .welcome{
+      font-weight:800;
+      opacity:.95;
+    }
+    .navBtn{
+      border:none;
+      border-radius:10px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:900;
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.20);
+      transition:.15s;
+    }
+    .navBtn:hover{
+      transform:translateY(-1px);
+    }
+
+    .wrap{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 16px 40px;
+    }
+
+    .hero{
+      text-align:center;
+      padding:18px 0 6px;
+    }
+    .heroTitle{
+      font-size:34px;
+      margin:10px 0 6px;
+      color:var(--brand);
+      font-weight:950;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .heroSub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      font-weight:650;
+    }
+
+    .upcoming{
+      background:linear-gradient(90deg, var(--brand), var(--brand2));
+      color:#fff;
+      border-radius:22px;
+      box-shadow: 0 20px 40px rgba(2,6,23,.16);
+      padding:22px 22px;
+      margin:18px 0 18px;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .upTop{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:950;
+      margin-bottom:8px;
+    }
+    .upTitle{
+      font-size:30px;
+      font-weight:950;
+      margin:0 0 8px;
+      line-height:1.05;
+    }
+    .upMeta{
+      opacity:.92;
+      font-weight:900;
+      margin:0 0 10px;
+    }
+    .upDesc{
+      margin:0;
+      opacity:.95;
+      font-weight:650;
+      max-width:850px;
+    }
+
+    .calRow{
+      display:grid;
+      grid-template-columns: 1.5fr .9fr;
+      gap:16px;
+      align-items:stretch;
+      margin-bottom:18px;
+    }
+    .panel{
+      background:var(--card);
+      border-radius:22px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow2);
+      padding:18px 18px;
+    }
+
+    .calHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .calHeader .title{
+      font-weight:950;
+      color:var(--brand);
+      font-size:22px;
+    }
+    .calNavBtn{
+      border:none;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:950;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+      transition:.15s;
+    }
+    .calNavBtn:hover{
+      transform:translateY(-1px);
+      background:rgba(11,143,135,.18);
+    }
+
+    .dow{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+      margin-bottom:8px;
+      color:var(--muted);
+      font-weight:900;
+      font-size:12.5px;
+      text-align:center;
+    }
+    .calGrid{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+    }
+
+    .cell{
+      height:48px;
+      border-radius:12px;
+      background:#f7fafb;
+      border:1px solid rgba(15,23,42,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      position:relative;
+      font-weight:900;
+      transition:.12s;
+      user-select:none;
+    }
+    .cell:hover{
+      background:#e9f6f6;
+      transform:translateY(-1px);
+    }
+    .cell.muted{
+      background:transparent;
+      border:1px solid transparent;
+      cursor:default;
+    }
+
+    .cell.holiday{ background:var(--cHoliday); color:#fff; border-color: rgba(255,138,61,.35); }
+    .cell.important{ background:var(--cImportant); color:#fff; border-color: rgba(142,68,173,.35); }
+    .cell.deadline{ background:var(--cDeadline); color:#fff; border-color: rgba(225,25,25,.35); }
+    .cell.event{ background:var(--cEvent); color:#fff; border-color: rgba(46,168,255,.35); }
+
+    .cell.today{
+      background:var(--cToday) !important;
+      color:#111 !important;
+      border-color: rgba(255,213,77,.55) !important;
+    }
+
+    .cell.selected{
+      outline: 3px solid rgba(11,143,135,.30);
+      box-shadow: 0 8px 18px rgba(2,6,23,.10);
+    }
+
+    .sideTitle{
+      font-size:18px;
+      font-weight:950;
+      color:var(--brand);
+      margin:2px 0 12px;
+    }
+
+    .legendGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:10px 12px;
+      margin-bottom:14px;
+    }
+    .legItem{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      color:rgba(15,23,42,.85);
+    }
+    .swatch{
+      width:16px;
+      height:16px;
+      border-radius:4px;
+      border:1px solid rgba(15,23,42,.12);
+      box-shadow: 0 8px 16px rgba(2,6,23,.08);
+      flex:0 0 auto;
+    }
+    .swatch.holiday{ background:var(--cHoliday); }
+    .swatch.important{ background:var(--cImportant); }
+    .swatch.deadline{ background:var(--cDeadline); }
+    .swatch.event{ background:var(--cEvent); }
+    .swatch.today{ background:var(--cToday); }
+
+    .tips h4{
+      margin:0 0 8px;
+      color:var(--brand);
+      font-size:18px;
+      font-weight:950;
+    }
+    .tips p{
+      margin:0;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.45;
+    }
+
+    .deptBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:14px 0 12px;
+      flex-wrap:wrap;
+    }
+    .deptInfo{
+      font-weight:950;
+      color:var(--brand);
+      font-size:18px;
+    }
+
+    .yearFilterPanel{
+      margin-bottom:18px;
+    }
+
+    .yearSummaryWrap{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+      gap:14px;
+    }
+
+    .yearBox{
+      border:1px solid var(--line);
+      background:linear-gradient(135deg, rgba(11,143,135,.08), rgba(10,163,154,.14));
+      border-radius:18px;
+      padding:18px 16px;
+      cursor:pointer;
+      transition:.18s;
+      box-shadow:var(--shadow2);
+    }
+    .yearBox:hover{
+      transform:translateY(-2px);
+    }
+    .yearBox.active{
+      outline:3px solid rgba(11,143,135,.20);
+      background:linear-gradient(135deg, rgba(11,143,135,.18), rgba(10,163,154,.22));
+    }
+    .yearLabel{
+      font-size:26px;
+      font-weight:950;
+      color:var(--brand);
+      margin-bottom:6px;
+    }
+    .yearCount{
+      font-size:15px;
+      font-weight:900;
+      color:var(--text);
+    }
+    .yearHint{
+      font-size:13px;
+      color:var(--muted);
+      font-weight:700;
+      margin-top:6px;
+    }
+
+    .eventsHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:14px;
+      margin-bottom:12px;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .eventsHeader h3{
+      margin:0;
+      color:var(--brand);
+      font-size:22px;
+      font-weight:950;
+    }
+    .eventsMeta{
+      color:var(--muted);
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(260px, 1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow2);
+      padding:16px 16px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+      font-weight:950;
+      border-radius:999px;
+      font-size:12.5px;
+      margin-bottom:10px;
+    }
+    .cardTitle{
+      margin:0 0 8px;
+      font-size:20px;
+      font-weight:950;
+    }
+    .cardDept{
+      color:var(--brand);
+      font-weight:950;
+      margin:0 0 6px;
+    }
+    .cardDate{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:900;
+      margin:0 0 10px;
+    }
+    .cardDesc{
+      margin:0;
+      color:rgba(15,23,42,.72);
+      font-weight:650;
+      line-height:1.45;
+      min-height:44px;
+    }
+
+    .yearTablePanel{
+      display:none;
+      margin-bottom:18px;
+    }
+
+    .yearTableWrap{
+      width:100%;
+      overflow-x:auto;
+    }
+
+    .yearTable{
+      width:100%;
+      border-collapse:collapse;
+      min-width:700px;
+    }
+
+    .yearTable th,
+    .yearTable td{
+      padding:12px 14px;
+      text-align:left;
+      border-bottom:1px solid rgba(15,23,42,.08);
+      font-size:14px;
+    }
+
+    .yearTable th{
+      background:rgba(11,143,135,.08);
+      color:var(--brand);
+      font-weight:950;
+    }
+
+    .yearTable td{
+      color:rgba(15,23,42,.85);
+      font-weight:700;
+    }
+
+    .yearRowBadge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    @media (max-width: 980px){
+      .calRow{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns:repeat(2, minmax(260px,1fr)); }
+      .legendGrid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 560px){
+      .cards{ grid-template-columns:1fr; }
+      .heroTitle{ font-size:28px; }
+      .upTitle{ font-size:26px; }
+      .legendGrid{ grid-template-columns:1fr; }
+    }
+    .card a{
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 800;
+  word-break: break-word;
+}
+.card a:hover{
+  text-decoration: underline;
+}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="navLeft">
+      <span style="font-size:20px;">🎓 Academic Calendar</span>
+    </div>
+
+    <div class="navRight">
+      <div class="welcome" id="welcomeText">Welcome, student</div>
+      <a href="home.html" class="navBtn">Home</a>
+      <button class="navBtn" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroTitle">🗓️ Student Calendar</div>
+      <p class="heroSub">View department events and get notified about upcoming activities</p>
+    </section>
+
+    <section class="upcoming">
+      <div class="upTop">🔔 Upcoming Event</div>
+      <h3 class="upTitle" id="upTitle">No upcoming events</h3>
+      <p class="upMeta" id="upMeta">—</p>
+      <p class="upDesc" id="upDesc">Your department events + Central announcements will appear here.</p>
+    </section>
+
+    <section class="calRow">
+      <div class="panel">
+        <div class="calHeader">
+          <button class="calNavBtn" id="prevBtn">◀ Prev</button>
+          <div class="title" id="monthYear">Month YYYY</div>
+          <button class="calNavBtn" id="nextBtn">Next ▶</button>
+        </div>
+
+        <div class="dow">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+
+        <div class="calGrid" id="calGrid"></div>
+      </div>
+
+      <div class="panel">
+        <div class="sideTitle">Legend</div>
+
+        <div class="legendGrid">
+          <div class="legItem"><span class="swatch holiday"></span> Holiday</div>
+          <div class="legItem"><span class="swatch important"></span> Important Date / Exam</div>
+          <div class="legItem"><span class="swatch deadline"></span> Deadline</div>
+          <div class="legItem"><span class="swatch event"></span> Event</div>
+          <div class="legItem"><span class="swatch today"></span> Today</div>
+        </div>
+
+        <div class="tips">
+          <h4>Quick Tips</h4>
+          <p>
+            Click a date to filter events for that date.
+            You will only see events for your department and Central announcements.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="deptBar">
+  <div class="deptInfo">Department: <span id="deptLabel">—</span></div>
+
+  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+    <label for="viewDeptFilter" style="font-weight:900; color:var(--brand);">View Events:</label>
+
+    <select id="viewDeptFilter" style="
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      font-weight:800;
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      min-width:220px;
+    ">
+      <option value="ALL">All Departments</option>
+      <option value="Central">Central</option>
+      <option value="GSE">GSE</option>
+      <option value="CSE">CSE</option>
+      <option value="ENTC">ENTC</option>
+      <option value="ELECT">ELECT</option>
+      <option value="MECH">MECH</option>
+      <option value="CIVIL">CIVIL</option>
+    </select>
+  </div>
+</div>
+
+    <section class="panel yearFilterPanel">
+      <div class="sideTitle">Year-wise Events</div>
+      <div id="yearSummary" class="yearSummaryWrap"></div>
+    </section>
+
+    <section class="eventsHeader">
+      <h3>Events</h3>
+      <div class="eventsMeta" id="eventsMeta">Loading...</div>
+    </section>
+
+    <section class="panel yearTablePanel" id="yearTablePanel">
+      <div class="sideTitle" id="yearListTitle">Year-wise Events</div>
+      <div class="yearTableWrap">
+        <table class="yearTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event Title</th>
+              <th>Type</th>
+              <th>Department</th>
+            </tr>
+          </thead>
+          <tbody id="yearTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="cards" id="cards"></section>
+  </main>
+
+  <script type="module" src="student.js"></script>
+</body>
+</html>

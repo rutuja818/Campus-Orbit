@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | HOD Dashboard</title>
+
+  <style>
+    :root{
+      --brand:#03203e;
+      --bg:#f3f7f8;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --line:rgba(15,23,42,.08);
+      --shadow2: 0 10px 22px rgba(2,6,23,.08);
+      --danger:#ef4444;
+      --ok:#10b981;
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .nav{
+      background:var(--brand);
+      color:#fff;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 10px 25px rgba(2,6,23,.18);
+    }
+
+    .navLeft{
+      display:flex;
+      gap:10px;
+      font-weight:900;
+    }
+
+    .navRight{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .navBtn{
+      border:none;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:850;
+      background:#fff;
+      color:var(--brand);
+    }
+
+    .navBtn.secondary{
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.2);
+    }
+
+    .wrap{
+      max-width:980px;
+      margin:auto;
+      padding:24px 16px;
+    }
+
+    .title{
+      font-size:34px;
+      font-weight:950;
+      color:var(--brand);
+    }
+
+    .sub{
+      color:var(--muted);
+      margin-bottom:18px;
+      font-weight:650;
+    }
+
+    .card{
+      background:#fff;
+      padding:16px;
+      border-radius:16px;
+      box-shadow:var(--shadow2);
+      margin-top:14px;
+    }
+
+    .topRow{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .eventName{
+      font-size:20px;
+      font-weight:900;
+    }
+
+    .badge{
+      background:#fef3c7;
+      padding:6px 10px;
+      border-radius:20px;
+      font-weight:800;
+    }
+
+    .meta{
+      margin-top:8px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    textarea{
+      width:100%;
+      margin-top:10px;
+      padding:10px;
+      border-radius:10px;
+      border:1px solid #ddd;
+    }
+
+    .actions{
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      padding:10px 14px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .approve{
+      background:#d1fae5;
+      color:#065f46;
+    }
+
+    .reject{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    .empty{
+      background:#fff;
+      padding:16px;
+      border-radius:16px;
+      margin-top:14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="nav">
+  <div class="navLeft">
+    <span>🎓</span>
+    <span>Campus Orbit</span>
+  </div>
+
+  <div class="navRight">
+    <button class="navBtn" onclick="window.location.href='approval_tracking.html'">Approval Tracking</button>
+    <button class="navBtn" onclick="window.location.href='staff.html'">Staff Page</button>
+    <a href="home.html" class="navBtn">Home</a>
+    <button class="navBtn secondary" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="title">HOD Dashboard</div>
+  <p class="sub">Review and approve events submitted by staff</p>
+
+  <!-- events will come here -->
+  <div id="list"></div>
+</main>
+
+<script src="hod.js"></script>
+
+<script>
+function logout(){
+  localStorage.removeItem("campusOrbit_currentUser_v1");
+  localStorage.removeItem("campusOrbit_token_v1");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Orbit</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f5f8fc;
+      color: #03203e;
+    }
+
+    /* NAVBAR */
+    #navbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      background: #03203e;
+      color: white;
+      padding: 6px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-img {
+      height: 45px;
+      cursor: pointer;
+    }
+
+    .nav-center {
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 18px;
+    }
+
+    .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-right a:hover {
+      color: #d8fffb;
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url("https://sinhgadsolapur.org/public/assets/vendor/sknscoe/img/Slider/g4.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      color: #ddd;
+    }
+
+    .hero-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero button {
+      padding: 10px 20px;
+      border: none;
+      background: #03203e;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.3s;
+      font-size: 15px;
+    }
+
+    .hero button:hover {
+      background: #03203e;
+    }
+
+    /* COMMON SECTION */
+    section {
+      padding: 75px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      color: #09184b;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #64748b;
+      max-width: 760px;
+      margin: 0 auto 35px;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ROLES */
+    .roles {
+      background: linear-gradient(to bottom, #f8fbff, #eef4fa);
+    }
+
+    .cards {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      padding: 28px 24px;
+      border-radius: 18px;
+      transition: 0.35s;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.08);
+      border: 1px solid #e5edf5;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg,#03203e, #090d5b);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.14);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #0f172a;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .card span {
+      color: #1e90ff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* FEATURES */
+    .features {
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 24px;
+    }
+
+    .box {
+      background: #f8fbff;
+      padding: 28px 20px;
+      border-radius: 16px;
+      transition: 0.3s;
+      border: 1px solid #e4edf7;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.06);
+    }
+
+    .box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 34px rgba(15,23,42,0.12);
+    }
+
+    .box .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .box h4 {
+      color: #0f172a;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .box p {
+      color: #64748b;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* ABOUT */
+    .about {
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .about-card {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 35px 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+      border: 1px solid #e5edf5;
+    }
+
+    .about-card p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    /* CONTACT */
+    .contact {
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .contact-wrap {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 22px;
+    }
+
+    .contact-card {
+      background: #f8fbff;
+      padding: 24px 20px;
+      border-radius: 16px;
+      border: 1px solid #e4edf7;
+      box-shadow: 0 8px 20px rgba(15,23,42,0.05);
+    }
+
+    .contact-card h4 {
+      margin-bottom: 10px;
+      color: #0f172a;
+      font-size: 18px;
+    }
+
+    .contact-card p {
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #021e40;
+      color: white;
+      text-align: center;
+      padding: 18px 14px 26px;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .footer-text {
+      margin-bottom: 8px;
+    }
+
+    /* HIDDEN ADMIN */
+    .hidden-admin {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.08);
+      cursor: pointer;
+      user-select: none;
+      transition: 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .hidden-admin:hover {
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2e9dd5;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: none;
+      z-index: 2000;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      #navbar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .nav-right {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .section-title {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <div class="nav-left">
+      <img
+        id="adminLogoTrigger"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJGKpwIXuB3qHjoTOOBJ1e0NeJjTiPUn3Jsg&s"
+        class="logo-img"
+        alt="College Logo"
+        title="College Logo"
+      >
+    </div>
+
+    <div class="nav-center">
+      N B Navale Sinhgad College Of Engineering, Solapur
+    </div>
+
+    <nav class="nav-right">
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Welcome to Campus Orbit</h1>
+    <p>Smart Event & Campus Management System</p>
+
+    <div class="hero-buttons">
+      <button onclick="scrollToRoles()">Get Started</button>
+      <button onclick="goToPage('register.html')">Register</button>
+      <button onclick="goToPage('login.html')">Login</button>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section class="roles" id="roles">
+    <h2 class="section-title">Select Your Role</h2>
+    <p class="section-subtitle">
+      Choose your role to access the respective portal and manage campus activities smoothly.
+    </p>
+
+    <div class="cards">
+      <div class="card" onclick="checkLoginAndGo('student.html')">
+        <h3>🎓 Student</h3>
+        <p>View approved events, notifications, announcements, and campus schedules.</p>
+        <span>Open Student Portal →</span>
+      </div>
+
+      <div class="card" onclick="checkLoginAndGo('staff.html')">
+        <h3>👨‍🏫 Staff</h3>
+        <p>Create events, manage reports, upload details, and handle event planning tasks.</p>
+        <span>Open Staff Portal →</span>
+      </div>
+
+      <div class="card" onclick="checkLoginAndGo('hod.html')">
+        <h3>🧑‍💼 HOD</h3>
+        <p>Monitor departmental requests, verify events, and guide approval flow efficiently.</p>
+        <span>Open HOD Portal →</span>
+      </div>
+
+      <div class="card" onclick="checkLoginAndGo('principal_approval.html')">
+        <h3>🏫 Principal</h3>
+        <p>Check final approvals, oversee activities, and manage centralized event decisions.</p>
+        <span>Open Principal Portal →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <h2 class="section-title">Core Features</h2>
+    <p class="section-subtitle">
+      Campus Orbit simplifies communication, approvals, reporting, and event handling in one platform.
+    </p>
+
+    <div class="grid">
+      <div class="box">
+        <div class="icon">📢</div>
+        <h4>Notifications</h4>
+        <p>Instant updates for students and staff regarding events, approvals, and important alerts.</p>
+      </div>
+
+      <div class="box">
+        <div class="icon">📑</div>
+        <h4>Report Generation</h4>
+        <p>Create and maintain event reports in a structured way for better documentation.</p>
+      </div>
+
+      <div class="box">
+        <div class="icon">📅</div>
+        <h4>Event Management</h4>
+        <p>Plan, track, and manage events with approval flow and organized scheduling.</p>
+      </div>
+
+      <div class="box">
+        <div class="icon">👥</div>
+        <h4>User Management</h4>
+        <p>Separate portals for Student, Staff, HOD, and Principal with secure navigation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2 class="section-title">About Campus Orbit</h2>
+    <div class="about-card">
+      <p>
+        Campus Orbit is a smart campus event and communication platform designed to connect
+        students, staff, HOD, and principal in one place. It helps streamline approvals,
+        notifications, reporting, and event coordination with a simple and organized workflow.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-subtitle">
+      Reach out for support or any campus platform related queries.
+    </p>
+
+    <div class="contact-wrap">
+      <div class="contact-card">
+        <h4>📧 Email</h4>
+        <p>campusorbit@gmail.com</p>
+      </div>
+
+      <div class="contact-card">
+        <h4>📍 Location</h4>
+        <p>N B Navale Sinhgad College Of Engineering, Solapur</p>
+      </div>
+
+      <div class="contact-card">
+        <h4>🌐 Support</h4>
+        <p>Available for event management and user assistance</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-text">© 2026 NBNSCOE | Campus Orbit</p>
+
+    <!-- hidden admin entry -->
+    <span class="hidden-admin" id="adminFooterTrigger">Admin Login</span>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- JS -->
+  <script>
+    function scrollToRoles() {
+      document.getElementById("roles").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function goToPage(page) {
+      showToast("Opening " + page);
+      setTimeout(() => {
+        window.location.href = page;
+      }, 700);
+    }
+
+    function checkLoginAndGo(page) {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+      if (isLoggedIn === "true") {
+        showToast("Opening " + page);
+        setTimeout(() => {
+          window.location.href = page;
+        }, 700);
+      } else {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 1800);
+    }
+
+    // ===============================
+    // HIDDEN ADMIN ACCESS - FOOTER
+    // ===============================
+    document.getElementById("adminFooterTrigger").addEventListener("click", function () {
+      window.location.href = "admin_login.html";
+    });
+
+    // ===============================
+    // SECRET ADMIN ACCESS - LOGO 5 CLICKS
+    // ===============================
+    let logoClickCount = 0;
+    let clickTimer;
+
+    document.getElementById("adminLogoTrigger").addEventListener("click", function () {
+      logoClickCount++;
+
+      clearTimeout(clickTimer);
+
+      clickTimer = setTimeout(() => {
+        logoClickCount = 0;
+      }, 2500);
+
+      if (logoClickCount === 5) {
+        showToast("Opening admin login...");
+        setTimeout(() => {
+          window.location.href = "admin_login.html";
+        }, 600);
+        logoClickCount = 0;
+      }
+    });
+  </script>
+
+</body>
+</html>

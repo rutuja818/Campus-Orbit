@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Orbit | Staff Home</title>
+
+  <style>
+    :root{
+      --brand:#03203e;
+      --brand2:#0a5ea3;
+      --bg:#f3f7f8;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#6b7280;
+      --line:rgba(15,23,42,.08);
+      --shadow: 0 14px 40px rgba(2,6,23,.10);
+      --shadow2: 0 10px 22px rgba(2,6,23,.08);
+      --radius:16px;
+
+      --today:#ffd54d;
+      --selected:#0a5ea3;
+      --hasEvent:#03203e;
+
+      --danger:#ef4444;
+      --warn:#f59e0b;
+      --ok:#10b981;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* NAVBAR */
+    .nav{
+      background:var(--brand);
+      color:#fff;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow: 0 10px 25px rgba(2,6,23,.18);
+    }
+    .navLeft{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .cap{ font-size:20px; }
+    .navRight{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .welcome{
+      font-weight:700;
+      opacity:.95;
+      margin-right:6px;
+    }
+    .navBtn{
+      border:none;
+      border-radius:10px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:800;
+      background:#ffffff;
+      color:var(--brand);
+      box-shadow: 0 6px 14px rgba(2,6,23,.10);
+      transition:.15s;
+    }
+    .navBtn:hover{ transform:translateY(-1px); }
+    .navBtn.secondary{
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.20);
+      box-shadow:none;
+    }
+
+    /* PAGE */
+    .wrap{
+      max-width:1180px;
+      margin:0 auto;
+      padding:26px 16px 40px;
+    }
+
+    /* HERO */
+    .hero{
+      text-align:center;
+      padding:18px 0 6px;
+    }
+    .heroTitle{
+      font-size:34px;
+      margin:10px 0 6px;
+      color:var(--brand);
+      font-weight:900;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .heroSub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    /* STATS */
+    .stats{
+      margin:22px auto 18px;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(160px, 1fr));
+      gap:14px;
+      max-width:900px;
+    }
+    .stat{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow2);
+      padding:18px 16px;
+      border:1px solid var(--line);
+      text-align:center;
+    }
+    .statNum{
+      font-size:32px;
+      font-weight:900;
+      color:var(--brand);
+      margin:0;
+    }
+    .statLab{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    /* UPCOMING */
+    .upcoming{
+      background:linear-gradient(90deg, var(--brand), var(--brand2));
+      color:#fff;
+      border-radius:22px;
+      box-shadow: 0 20px 40px rgba(2,6,23,.16);
+      padding:22px 22px;
+      margin:18px 0 26px;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .upTop{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      opacity:.95;
+      font-weight:900;
+      letter-spacing:.2px;
+      margin-bottom:8px;
+    }
+    .upTitle{
+      font-size:30px;
+      font-weight:950;
+      margin:0 0 8px;
+      line-height:1.05;
+    }
+    .upMeta{
+      opacity:.92;
+      font-weight:800;
+      margin:0 0 10px;
+    }
+    .upDesc{
+      margin:0;
+      opacity:.95;
+      font-weight:600;
+      max-width:850px;
+    }
+
+    /* CALENDAR + SIDE */
+    .calRow{
+      display:grid;
+      grid-template-columns: 1.5fr .9fr;
+      gap:16px;
+      align-items:stretch;
+      margin-bottom:18px;
+    }
+    .panel{
+      background:var(--card);
+      border-radius:22px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow2);
+      padding:18px 18px;
+    }
+
+    .calHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .calHeader .title{
+      font-weight:950;
+      color:var(--brand);
+      font-size:22px;
+      letter-spacing:.2px;
+    }
+    .calNavBtn{
+      border:none;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:900;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+      transition:.15s;
+    }
+    .calNavBtn:hover{ transform:translateY(-1px); background:rgba(11,143,135,.18); }
+
+    .dow{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+      margin-bottom:8px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12.5px;
+      text-align:center;
+    }
+
+    .calGrid{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+    }
+    .cell{
+      height:48px;
+      border-radius:12px;
+      background:#f7fafb;
+      border:1px solid rgba(15,23,42,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      position:relative;
+      font-weight:800;
+      color:#0f172a;
+      transition:.12s;
+      user-select:none;
+    }
+    .cell:hover{ background:#e9f6f6; transform:translateY(-1px); }
+    .cell.muted{
+      background:transparent;
+      border:1px solid transparent;
+      cursor:default;
+    }
+    .cell.today{
+      background:var(--today);
+      border-color:rgba(0,0,0,.08);
+    }
+    .cell.selected{
+      outline: 3px solid rgba(11,143,135,.20);
+      background: #e6f7f6;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background:var(--hasEvent);
+      position:absolute; bottom:7px; left:50%;
+      transform:translateX(-50%);
+    }
+
+    /* SIDE LEGEND */
+    .sideTitle{
+      font-size:18px;
+      font-weight:950;
+      color:var(--brand);
+      margin:2px 0 12px;
+    }
+    .legend{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .legItem{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#0f172a;
+      font-weight:700;
+    }
+    .pill{
+      width:12px;height:12px;border-radius:999px;
+      background:#ddd;
+      display:inline-block;
+    }
+    .pill.today{ background:var(--brand); }
+    .pill.selected{ background:rgba(11,143,135,.35); }
+    .pill.has{ background:rgba(11,143,135,.18); border:2px solid rgba(11,143,135,.55); }
+
+    .tips h4{
+      margin:0 0 8px;
+      color:var(--brand);
+      font-size:18px;
+      font-weight:950;
+    }
+    .tips p{
+      margin:0;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.45;
+    }
+
+    /* FILTER */
+    .sectionTitle{
+      margin:26px 0 12px;
+      color:var(--brand);
+      font-size:22px;
+      font-weight:950;
+      letter-spacing:.2px;
+    }
+    .filters{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(130px,1fr));
+      gap:12px;
+    }
+    .filter{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px 12px;
+      text-align:center;
+      font-weight:900;
+      color:#0f172a;
+      cursor:pointer;
+      box-shadow:var(--shadow2);
+      transition:.15s;
+    }
+    .filter:hover{ transform:translateY(-2px); }
+    .filter.active{
+      background:var(--brand);
+      color:#fff;
+      border-color:rgba(255,255,255,.22);
+    }
+
+    /* EVENTS GRID */
+    .eventsHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:22px;
+      margin-bottom:12px;
+      gap:12px;
+    }
+    .eventsHeader h3{
+      margin:0;
+      color:var(--brand);
+      font-size:22px;
+      font-weight:950;
+    }
+    .eventsMeta{
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(260px, 1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow2);
+      padding:16px 16px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+      font-weight:950;
+      border-radius:999px;
+      font-size:12.5px;
+      margin-bottom:10px;
+    }
+    .cardTitle{
+      margin:0 0 8px;
+      font-size:20px;
+      font-weight:950;
+    }
+    .cardDept{
+      color:var(--brand);
+      font-weight:950;
+      margin:0 0 6px;
+    }
+    .cardDate{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-weight:800;
+      margin:0 0 10px;
+    }
+    .cardDesc{
+      margin:0 0 14px;
+      color:rgba(15,23,42,.72);
+      font-weight:650;
+      line-height:1.45;
+      min-height:44px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      font-weight:950;
+      border-radius:12px;
+      padding:10px 14px;
+      transition:.15s;
+    }
+    .btn.edit{
+      background:rgba(11,143,135,.12);
+      color:var(--brand);
+    }
+    .btn.del{
+      background:rgba(239,68,68,.12);
+      color:var(--danger);
+    }
+    .btn:hover{ transform:translateY(-1px); }
+
+    /* MODALS */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(2,6,23,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .modal{
+      width:min(520px, 96vw);
+      background:#fff;
+      border-radius:18px;
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow: 0 30px 80px rgba(2,6,23,.25);
+      padding:16px 16px;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+    }
+    .modalHead h4{
+      margin:0;
+      color:var(--brand);
+      font-size:18px;
+      font-weight:950;
+    }
+    .x{
+      border:none;
+      background:rgba(15,23,42,.06);
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:950;
+    }
+    .field{ margin:12px 0; }
+    label{
+      display:block;
+      font-weight:900;
+      margin-bottom:8px;
+      color:#0f172a;
+      font-size:13px;
+    }
+    input,select,textarea{
+      width:100%;
+      padding:11px 12px;
+      border:1px solid rgba(15,23,42,.14);
+      border-radius:12px;
+      outline:none;
+      font-size:14.5px;
+      font-weight:650;
+      background:#fff;
+    }
+    input:focus,select:focus,textarea:focus{
+      border-color: rgba(11, 42, 143, 0.423);
+      box-shadow: 0 0 0 4px rgba(11,143,135,.12);
+    }
+    textarea{ min-height:90px; resize:vertical; }
+
+    .modalActions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-top:12px;
+    }
+    .primary{
+      background:var(--brand);
+      color:#fff;
+    }
+    .ghost{
+      background:rgba(15,23,42,.06);
+      color:#0f172a;
+    }
+
+    /* NEW: Send to approver row */
+    .sendRow{
+      margin-top:10px;
+      padding:10px 12px;
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#f7fafb;
+      font-weight:850;
+      color:#0f172a;
+      user-select:none;
+    }
+    .sendRow input{ width:auto; transform:scale(1.12); }
+
+    /* NEW: toast */
+    .toast{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.12);
+      box-shadow: 0 18px 40px rgba(2,6,23,.18);
+      border-radius:14px;
+      padding:12px 12px;
+      width:min(360px, 92vw);
+      display:none;
+      z-index:999;
+    }
+    .toastTitle{
+      font-weight:950;
+      color:var(--brand);
+      margin:0 0 4px;
+    }
+    .toastText{
+      margin:0;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.35;
+    }
+    .toastActions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-top:10px;
+    }
+
+    /* link + pdf style */
+    .card a{
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 800;
+      word-break: break-word;
+    }
+    .card a:hover{
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px){
+      .calRow{ grid-template-columns: 1fr; }
+      .filters{ grid-template-columns:repeat(3, minmax(130px,1fr)); }
+      .cards{ grid-template-columns:repeat(2, minmax(260px,1fr)); }
+      .stats{ grid-template-columns:repeat(2, minmax(160px,1fr)); }
+    }
+    @media (max-width: 560px){
+      .cards{ grid-template-columns:1fr; }
+      .filters{ grid-template-columns:repeat(2, minmax(130px,1fr)); }
+      .heroTitle{ font-size:28px; }
+      .upTitle{ font-size:26px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="navLeft">
+      <span class="cap">🎓</span>
+      <span style="font-size:20px;">Campus orbit</span>
+    </div>
+
+    <div class="navRight">
+      <div class="welcome" id="welcomeText">Welcome, staff</div>
+      <button class="navBtn" id="addEventTop">+ Add Event</button>
+      <button class="navBtn" id="trackBtn">Approval Tracking</button>
+      <button class="navBtn" onclick="window.location.href='report_event.html'">Report</button>
+      <a href="home.html" class="navBtn">Home</a>
+      <button class="navBtn secondary" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="heroTitle">🗓️ Academic Calendar</div>
+      <p class="heroSub">View and manage all academic events in one place</p>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="stat">
+        <p class="statNum" id="statTotal">0</p>
+        <p class="statLab">Total Events</p>
+      </div>
+      <div class="stat">
+        <p class="statNum" id="statExam">0</p>
+        <p class="statLab">Exams</p>
+      </div>
+      <div class="stat">
+        <p class="statNum" id="statWorkshop">0</p>
+        <p class="statLab">Workshops</p>
+      </div>
+      <div class="stat">
+        <p class="statNum" id="statSeminar">0</p>
+        <p class="statLab">Seminars</p>
+      </div>
+    </section>
+
+    <!-- UPCOMING -->
+    <section class="upcoming" id="upcomingBox">
+      <div class="upTop">📌 Upcoming Event</div>
+      <h3 class="upTitle" id="upTitle">No upcoming events</h3>
+      <p class="upMeta" id="upMeta">—</p>
+      <p class="upDesc" id="upDesc">Add events to see the next upcoming event here.</p>
+    </section>
+<section class="panel" style="margin-bottom:18px;">
+  <div class="sideTitle">Download Event Reports</div>
+
+ <section class="panel" style="margin-bottom:18px;">
+  <div class="sideTitle">Download Event Reports</div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; align-items:end;">
+
+    <div>
+      <label for="pdfSemYear">Semester Report Year</label>
+      <input type="number" id="pdfSemYear" placeholder="e.g. 2026" min="2000" max="2100" />
+    </div>
+
+    <div>
+      <label for="pdfSemester">Semester</label>
+      <select id="pdfSemester">
+        <option value="">Select Semester</option>
+        <option value="1">Sem 1 (July to December)</option>
+        <option value="2">Sem 2 (January to June)</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="pdfDept">Choose Department</label>
+      <select id="pdfDept">
+        <option value="">Select Department</option>
+        <option value="Central">Central</option>
+        <option value="GSE">GSE</option>
+        <option value="CSE">CSE</option>
+        <option value="ENTC">ENTC</option>
+        <option value="ELECT">ELECT</option>
+        <option value="MECH">MECH</option>
+        <option value="CIVIL">CIVIL</option>
+      </select>
+    </div>
+
+    <div>
+      <button class="navBtn" id="downloadSemPdfBtn">Download Semester PDF</button>
+    </div>
+
+    <div>
+      <label for="pdfYear">Year-wise PDF</label>
+      <input type="number" id="pdfYear" placeholder="e.g. 2026" min="2000" max="2100" />
+    </div>
+
+    <div>
+      <button class="navBtn" id="downloadYearPdfBtn">Download Yearly PDF</button>
+    </div>
+
+  </div>
+</section>
+</section>
+    <!-- CALENDAR -->
+    <section class="calRow">
+      <div class="panel">
+        <div class="calHeader">
+          <button class="calNavBtn" id="prevBtn">◀ Prev</button>
+          <div class="title" id="monthYear">Month YYYY</div>
+          <button class="calNavBtn" id="nextBtn">Next ▶</button>
+        </div>
+
+        <div class="dow">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+
+        <div class="calGrid" id="calGrid"></div>
+      </div>
+
+      <div class="panel">
+        <div class="sideTitle">Legend</div>
+        <div class="legend">
+          <div class="legItem"><span class="pill today"></span> Today</div>
+          <div class="legItem"><span class="pill selected"></span> Selected</div>
+          <div class="legItem"><span class="pill has"></span> Has Event</div>
+        </div>
+
+        <div class="tips">
+          <h4>Quick Tips</h4>
+          <p>
+            Click on a date to filter events. Use department cards below to filter by department.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER -->
+    <h3 class="sectionTitle">Filter by Department</h3>
+    <section class="filters" id="filters"></section>
+
+    <!-- EVENTS -->
+    <section class="eventsHeader">
+      <h3>Events</h3>
+      <div class="eventsMeta" id="eventsMeta">Showing all events</div>
+    </section>
+
+    <section class="cards" id="cards"></section>
+  </main>
+
+  <!-- ADD EVENT MODAL -->
+  <div class="overlay" id="addOverlay">
+    <div class="modal">
+      <div class="modalHead">
+        <h4>Add Event</h4>
+        <button class="x" id="closeAdd">✕</button>
+      </div>
+
+      <div class="field">
+        <label>Title</label>
+        <input id="addTitle" placeholder="e.g., Alumni Meet" />
+      </div>
+
+      <div class="field">
+        <label>Department</label>
+        <select id="addDept">
+  <option value="">Select</option>
+  <option>Central</option>
+  <option>GSE</option>
+  <option>CSE</option>
+  <option>ENTC</option>
+  <option>ELECT</option>
+  <option>MECH</option>
+  <option>CIVIL</option>
+</select>
+      </div>
+
+      <div class="field">
+        <label>Type</label>
+        <select id="addType">
+          <option value="">Select</option>
+          <option>Exam</option>
+          <option>Workshop</option>
+          <option>Seminar</option>
+          <option>Event</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Date</label>
+        <input id="addDate" type="date" />
+      </div>
+
+      <div class="field">
+        <label>Location</label>
+        <input id="addLocation" type="text" placeholder="e.g., Seminar Hall A" />
+      </div>
+
+      <div class="field">
+        <label>Start Time</label>
+        <input id="addStartTime" type="time" />
+      </div>
+
+      <div class="field">
+        <label>End Time</label>
+        <input id="addEndTime" type="time" />
+      </div>
+
+      <div class="field">
+        <label>Duration / Days</label>
+        <input id="addDurationText" type="text" placeholder="e.g., 2 days / 3-day event" />
+      </div>
+
+      <div class="field">
+        <label>Event Link</label>
+        <input id="addLink" type="url" placeholder="https://example.com" />
+      </div>
+
+      <div class="field">
+        <label>Upload PDF</label>
+        <input id="addPdf" type="file" accept=".pdf,application/pdf" />
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea id="addDesc" placeholder="Write short description..."></textarea>
+          </div>
+
+      <!-- ✅ Send to Approver -->
+      <div class="field">
+  <label>Approval Route</label>
+  <select id="approvalRoute">
+    <option value="HOD">HOD Only</option>
+    <option value="PRINCIPAL">Principal Only</option>
+    <option value="BOTH" selected>Both HOD and Principal</option>
+    </select>
+      </div>
+      <div class="modalActions">
+        <button class="btn ghost" id="cancelAdd">Cancel</button>
+        <button class="btn primary" id="saveAdd">Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div class="overlay" id="editOverlay">
+    <div class="modal">
+      <div class="modalHead">
+        <h4>Edit Event</h4>
+        <button class="x" id="closeEdit">✕</button>
+      </div>
+
+      <div class="field">
+        <label>Title</label>
+        <input id="editTitle" />
+      </div>
+
+      <div class="field">
+        <label>Department</label>
+        <select id="editDept">
+  <option>Central</option>
+  <option>GSE</option>
+  <option>CSE</option>
+  <option>ENTC</option>
+  <option>ELECT</option>
+  <option>MECH</option>
+  <option>CIVIL</option>
+</select>
+      </div>
+
+      <div class="field">
+        <label>Type</label>
+        <select id="editType">
+          <option>Exam</option>
+          <option>Workshop</option>
+          <option>Seminar</option>
+          <option>Event</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Date</label>
+        <input id="editDate" type="date" />
+      </div>
+
+      <div class="field">
+        <label>Location</label>
+        <input id="editLocation" type="text" placeholder="e.g., Seminar Hall A" />
+      </div>
+
+      <div class="field">
+        <label>Start Time</label>
+        <input id="editStartTime" type="time" />
+      </div>
+
+      <div class="field">
+        <label>End Time</label>
+        <input id="editEndTime" type="time" />
+      </div>
+
+      <div class="field">
+        <label>Duration / Days</label>
+        <input id="editDurationText" type="text" placeholder="e.g., 2 days / 3-day event" />
+      </div>
+
+      <div class="field">
+        <label>Event Link</label>
+        <input id="editLink" type="url" placeholder="https://example.com" />
+      </div>
+
+      <div class="field">
+        <label>Upload PDF</label>
+        <input id="editPdf" type="file" accept=".pdf,application/pdf" />
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea id="editDesc"></textarea>
+      </div>
+
+      <div class="modalActions">
+        <button class="btn ghost" id="cancelEdit">Cancel</button>
+        <button class="btn primary" id="saveEdit">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div class="toast" id="toast">
+    <p class="toastTitle" id="toastTitle">Update</p>
+    <p class="toastText" id="toastText">—</p>
+    <div class="toastActions">
+      <button class="btn ghost" id="toastClose">Close</button>
+      <button class="btn primary" id="toastGo">Open Tracking</button>
+    </div>
+  </div>
+
+  <!-- ✅ ONLY THIS SCRIPT NOW -->
+  <script type="module" src="staff.js"></script>
+</body>
+</html>

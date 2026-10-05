@@ -1,6 +1,6 @@
 # Campus Orbit
 
-## Academic Calendar Management System
+## "a smart academic calendar platform"
 
 Campus Orbit is a web-based Academic Calendar Management System designed for colleges to manage academic events, approvals, notifications, and reports in a centralized way.
 
